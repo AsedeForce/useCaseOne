@@ -1,3 +1,11 @@
 <template>
-    
+        <div class="slds-grid slds-wrap">
+                <template for:each={movies} for:item="movie">
+                        <div class="slds-col slds-size_1-of-3" key={movie.Id}>
+                                <div class="container">
+                                        <c-movie-tile-lwc movie={movie} ></c-movie-tile-lwc>
+                                </div>
+                        </div>
+                </template>
+        </div>
 </template>
