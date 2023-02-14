@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>ActorSelector</members>
+        <members>GetMovies</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
         <members>AppSwitcher</members>
         <name>AppMenu</name>
     </types>
@@ -44,9 +49,9 @@
     </types>
     <types>
         <members>filterMoviesLwc</members>
-        <members>movieTileLwc</members>
         <members>movieManagerContainer</members>
         <members>moviePreviewLwc</members>
+        <members>movieTileLwc</members>
         <members>moviesResultsLwc</members>
         <members>newMoviesModalLwc</members>
         <name>LightningComponentBundle</name>
