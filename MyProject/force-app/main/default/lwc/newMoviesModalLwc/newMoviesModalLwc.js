@@ -1,4 +1,6 @@
-import { LightningElement, track, api } from 'lwc';
+import { LightningElement, wire, api } from 'lwc';
+import getActors from '@salesforce/apex/ActorSelector.getActors';
+
 
 export default class NewMoviesModalLwc extends LightningElement {
     @api
@@ -72,6 +74,23 @@ export default class NewMoviesModalLwc extends LightningElement {
             label : 'Steve Marting'
         },
     ];
+
+    @wire(getActors)
+    wiredValues({ error, data }) {
+        if (data) {
+            console.log(data);
+            this.actorsOptions = data.map(value => ({
+                label: value.Name,
+                value: value.Name
+            }));
+        } else if (error) {
+            console.error(error);
+        }
+    }
+
+    handleChange(event) {
+        this.value = event.detail.value;
+    }
 
 
     isPicklistDisabled = false;
