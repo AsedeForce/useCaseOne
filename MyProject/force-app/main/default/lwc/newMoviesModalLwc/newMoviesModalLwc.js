@@ -4,6 +4,7 @@ import movieName from '@salesforce/schema/Movie__c.Name';
 import movieType from '@salesforce/schema/Movie__c.Category__c';
 import movieRating from  '@salesforce/schema/Movie__c.Rating__c';
 import movieDescription from  '@salesforce/schema/Movie__c.Description__c';
+import movieRelease from  '@salesforce/schema/Movie__c.Release_date__c';
 import insertMovie from '@salesforce/apex/MovieController.insertMovie'
 //import movieActors from  '@salesforce/schema/Movie__c.Actors';
 
@@ -77,6 +78,7 @@ export default class NewMoviesModalLwc extends LightningElement {
         Category__c : movieType, 
         Rating__c : movieRating, 
         Description__c : movieDescription,
+        Release_date__c : movieRelease,
         Actors : ''
     };
 
@@ -91,6 +93,7 @@ export default class NewMoviesModalLwc extends LightningElement {
         // );
         insertMovie({obj: this.newMovieRecord})
         .then(() => {
+            this.hideModalBox();
             console.log('we here success');
         })
         .catch(error => {
@@ -130,6 +133,8 @@ export default class NewMoviesModalLwc extends LightningElement {
         this.isshowmodal = false;
         const closeEvent = new CustomEvent('modalclosed');
         this.dispatchEvent(closeEvent);
+        this.selectedActors = [];
+        this.newMovieRecord = {};
     }
 
     addActor() {
@@ -171,8 +176,8 @@ export default class NewMoviesModalLwc extends LightningElement {
         this.newMovieRecord.Name = event.target.value;
     }
 
-    initModalData() {
-        //TODO
+    dateChangeHandler(event) {
+        this.newMovieRecord.Release_date__c = event.target.value;
     }
 
 }

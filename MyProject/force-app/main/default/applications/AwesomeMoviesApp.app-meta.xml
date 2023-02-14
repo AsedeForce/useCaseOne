@@ -12,6 +12,7 @@
     <label>AwesomeMoviesApp</label>
     <navType>Standard</navType>
     <tabs>MoviesManagement</tabs>
+    <tabs>Movie__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>AwesomeMoviesApp_UtilityBar</utilityBar>
 </CustomApplication>

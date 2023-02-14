@@ -9,9 +9,9 @@
             <button class="slds-button slds-button_neutral" onclick={handleNewMovieModal} >New Movie</button>
           </div>
         </div>
-        <c-new-movies-modal-lwc isshowmodal={isshowmodal} onmodalclosed={handleModalClosed} ></c-new-movies-modal-lwc>
+            <c-new-movies-modal-lwc isshowmodal={isshowmodal} onmodalclosed={handleModalClosed} ></c-new-movies-modal-lwc>
         <div class="slds-align_absolute-center slds-size_1-of-2 slds-m-bottom_small">
-          <c-filter-movies-lwc  onfiltered = {handleFiltered} ></c-filter-movies-lwc>
+           <c-filter-movies-lwc  onfiltered = {handleFiltered} ></c-filter-movies-lwc>
         </div>
         <div>
           <c-movies-results-lwc movies={movies}></c-movies-results-lwc>

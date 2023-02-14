@@ -10,7 +10,7 @@
         </div>
         <div class="slds-align_absolute-center slds-size_1-of-2 slds-m-bottom_small">
             <button class="slds-button slds-button_neutral">Update movie</button>
-            <button class="slds-button slds-button_neutral">Delete movie</button>
+            <button class="slds-button slds-button_neutral" onclick={deleteMovie} >Delete movie</button>
         </div>
     </template>
     <template if:false={movie}>

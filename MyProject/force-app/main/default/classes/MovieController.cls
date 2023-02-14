@@ -14,7 +14,7 @@ public with sharing class MovieController {
     }
 
     @AuraEnabled
-    public static Movie__c insertMovie(Object obj) {
+    public static void insertMovie(Object obj) {
         Map<String,Object> movieActorRecord = (Map<String, Object>) JSON.deserializeUntyped(JSON.serialize(obj));
         String movieName = (String) movieActorRecord.get('Name');
         List<Object> actorList = (List<Object>) movieActorRecord.get('Actors');
@@ -26,8 +26,10 @@ public with sharing class MovieController {
             Movie__c movie = new Movie__c(Name = (String) movieActorRecord.get('Name'), 
                             Category__c = (String)movieActorRecord.get('Category__c'), 
                             Rating__c = (String) movieActorRecord.get('Rating__c'), 
-                            Description__c = (String) movieActorRecord.get('Description__c'));
+                            Description__c = (String) movieActorRecord.get('Description__c'), 
+                            Release_date__c = Date.valueOf((String) movieActorRecord.get('Release_date__c')));
             insert movie;
+
             List<Actor__c> actors = [SELECT Id FROM Actor__c WHERE Name IN :actorStringList WITH SECURITY_ENFORCED];
             List<MovieActor__c> movieActors = new List<MovieActor__c>();
 
@@ -41,9 +43,19 @@ public with sharing class MovieController {
             insert movieActors;
         } catch (DmlException e) {
             throw new AuraHandledException(e.getMessage());
-            // Handle any DML exceptions here
         }
     }
 
+    @AuraEnabled
+    public static void deleteMovie(String id) {
+            try {
+                Movie__c movie = [SELECT Id FROM Movie__c WHERE Id = :id WITH SECURITY_ENFORCED];
+                if (movie != null) {
+                    delete movie;
+                }
+            } catch (DmlException e) {
+                throw new AuraHandledException(e.getMessage());
+            }
+    }
 
 }

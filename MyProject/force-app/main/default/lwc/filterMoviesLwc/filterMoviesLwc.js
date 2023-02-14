@@ -23,8 +23,6 @@ export default class FilterMoviesLwc extends LightningElement {
         {detail : [...data]}
         );
         this.dispatchEvent(movieEvent);
-        console.log(this.movies, 'hado les movies');
-
     }
 
 

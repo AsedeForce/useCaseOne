@@ -52,6 +52,18 @@
                     </div>
                     <div class="slds-grid  slds-form-element slds-m-bottom_small">
                         <div class="slds-col slds-size_1-of-3">
+                            <label class="slds-form-element__label">Release Date : </label>
+                        </div>
+                        <div class="slds-col slds-size_2-of-3">
+                            <div class="slds-form-element__control">
+                                <lightning-input value={newMovieRecord.Release_date__c} variant="label-hidden"
+                                    onchange={dateChangeHandler} type="date" id="form-element-03"
+                                    placeholder="Choose date"></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-grid  slds-form-element slds-m-bottom_small">
+                        <div class="slds-col slds-size_1-of-3">
                             <label class="slds-form-element__label">Description : </label>
                         </div>
                         <div class="slds-col slds-size_2-of-3">
