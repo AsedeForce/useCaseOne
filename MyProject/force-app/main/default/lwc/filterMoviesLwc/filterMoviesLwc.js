@@ -1,5 +1,5 @@
 import { LightningElement, wire } from 'lwc';
-import getMoviesWithSearch from '@salesforce/apex/GetMovies.getMoviesWithSearch';
+import getMoviesWithSearch from '@salesforce/apex/MovieController.getMoviesWithSearch';
 
 
 export default class FilterMoviesLwc extends LightningElement {

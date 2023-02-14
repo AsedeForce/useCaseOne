@@ -2,7 +2,7 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>ActorSelector</members>
-        <members>GetMovies</members>
+        <members>MovieController</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -19,6 +19,7 @@
         <members>MovieActor__c.Actor__c</members>
         <members>MovieActor__c.Movie__c</members>
         <members>Movie__c.Category__c</members>
+        <members>Movie__c.Rating__c</members>
         <members>Movie__c.Description__c</members>
         <members>Movie__c.FemaleActorsPercentage__c</members>
         <members>Movie__c.IsReleased__c</members>

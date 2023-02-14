@@ -1,10 +1,21 @@
-import { LightningElement, wire, api } from 'lwc';
+import { LightningElement, wire, api, track } from 'lwc';
 import getActors from '@salesforce/apex/ActorSelector.getActors';
+import movieName from '@salesforce/schema/Movie__c.Name';
+import movieType from '@salesforce/schema/Movie__c.Category__c';
+import movieRating from  '@salesforce/schema/Movie__c.Rating__c';
+import movieDescription from  '@salesforce/schema/Movie__c.Description__c';
+import insertMovie from '@salesforce/apex/MovieController.insertMovie'
+//import movieActors from  '@salesforce/schema/Movie__c.Actors';
+
+
 
 
 export default class NewMoviesModalLwc extends LightningElement {
     @api
     isshowmodal = false;
+
+    isPicklistDisabled = false;
+    isAttributeRequired = false;
 
     ratingOptions = [
         {
@@ -52,33 +63,52 @@ export default class NewMoviesModalLwc extends LightningElement {
         },
     ];
 
-    actorsOptions = [
-        {
-            value : 'Clint EastWood',
-            label : 'Clint EastWood'
-        },
-        {
-            value : 'Mark Ruffalo',
-            label : 'Mark Ruffalo'
-        },
-        {
-            value : 'Leonardo Dicaprio',
-            label : 'Leonardo Dicaprio'
-        },
-        {
-            value : 'Heath Ledger',
-            label : 'Heath Ledger'
-        },
-        {
-            value : 'Steve Martin',
-            label : 'Steve Marting'
-        },
-    ];
+    actorsOptions = [];
+
+    @track
+    selectedActors = [];
+    @track
+    selectedActor;
+
+
+    @track 
+    newMovieRecord={
+        Name: movieName , 
+        Category__c : movieType, 
+        Rating__c : movieRating, 
+        Description__c : movieDescription,
+        Actors : ''
+    };
+
+    saveNewMovie (){
+        console.log(JSON.parse(JSON.stringify(this.newMovieRecord)));
+        // this.dispatchEvent(
+        //     new ShowToastEvent({
+        //         title: 'Success',
+        //         message: 'Movie inserted successfully',
+        //         variant: 'success'
+        //     })
+        // );
+        insertMovie({obj: this.newMovieRecord})
+        .then(() => {
+            console.log('we here success');
+        })
+        .catch(error => {
+            console.log(error, 'we here error');
+            // this.dispatchEvent(
+            //     new ShowToastEvent({
+            //         title: 'Error',
+            //         message: error.body.message,
+            //         variant: 'error'
+            //     })
+            // );
+        });
+
+    }
 
     @wire(getActors)
     wiredValues({ error, data }) {
         if (data) {
-            console.log(data);
             this.actorsOptions = data.map(value => ({
                 label: value.Name,
                 value: value.Name
@@ -92,15 +122,6 @@ export default class NewMoviesModalLwc extends LightningElement {
         this.value = event.detail.value;
     }
 
-
-    isPicklistDisabled = false;
-
-    isAttributeRequired = false;
-
-    selectionChangeHandler() {
-        //to implement
-    }
-
     showModalBox() {  
         this.isshowmodal = true;
     }
@@ -111,8 +132,47 @@ export default class NewMoviesModalLwc extends LightningElement {
         this.dispatchEvent(closeEvent);
     }
 
-    selectionChangeHandler() {
-        //to implement
+    addActor() {
+        if (!this.selectedActors.includes(this.selectedActor)) {
+            this.selectedActors.push(this.selectedActor);
+            this.newMovieRecord.Actors = this.selectedActors.map(value => (value.label));
+        }
+
+    }
+
+    removeActor(event) {
+        this.selectedActors = this.selectedActors.filter(item => item.label !== event.target.value);
+        this.newMovieRecord.Actors = this.selectedActors.map(value => (value.label));
+    }
+
+
+
+    actorSelectionChangeHandler(event) {
+        this.selectedActor = {
+            label : event.target.value,
+            value : event.target.value
+        };
+        //this.newMovieRecord.Actors = event.target.value;
+    }
+
+    typeSelectionChangeHandler(event) {
+        this.newMovieRecord.Category__c = event.target.value;
+    }
+
+    ratingSelectionChangeHandler(event) {
+        this.newMovieRecord.Rating__c = event.target.value;
+    }
+
+    descriptionChangeHandler(event) {
+        this.newMovieRecord.Description__c = this.template.querySelector("lightning-textarea").value;
+    }
+
+    nameChangeHandler(event) {
+        this.newMovieRecord.Name = event.target.value;
+    }
+
+    initModalData() {
+        //TODO
     }
 
 }

@@ -13,8 +13,6 @@ export default class MovieManagerContainer extends LightningElement {
     }
 
     handleFiltered( event ) {
-        console.log(event.target);
-        console.log(event.detail);
         this.movies = event.detail.map(value => ({
             id: value.Id,
             type: value.Category__c,
