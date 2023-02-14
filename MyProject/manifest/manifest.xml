@@ -19,11 +19,11 @@
         <members>MovieActor__c.Actor__c</members>
         <members>MovieActor__c.Movie__c</members>
         <members>Movie__c.Category__c</members>
-        <members>Movie__c.Rating__c</members>
         <members>Movie__c.Description__c</members>
         <members>Movie__c.FemaleActorsPercentage__c</members>
         <members>Movie__c.IsReleased__c</members>
         <members>Movie__c.MaleActorsPercentage__c</members>
+        <members>Movie__c.Rating__c</members>
         <members>Movie__c.Release_date__c</members>
         <name>CustomField</name>
     </types>
@@ -34,11 +34,13 @@
         <name>CustomObject</name>
     </types>
     <types>
+        <members>Movie__c</members>
         <members>MoviesManagement</members>
         <name>CustomTab</name>
     </types>
     <types>
         <members>AwesomeMoviesApp_UtilityBar</members>
+        <members>Movie</members>
         <members>MoviesManagement</members>
         <name>FlexiPage</name>
     </types>
@@ -60,6 +62,10 @@
     <types>
         <members>Preview</members>
         <name>LightningMessageChannel</name>
+    </types>
+    <types>
+        <members>Movie__c.All</members>
+        <name>ListView</name>
     </types>
     <types>
         <members>Admin</members>
