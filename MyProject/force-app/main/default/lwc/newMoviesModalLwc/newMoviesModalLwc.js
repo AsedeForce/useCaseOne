@@ -7,6 +7,7 @@ import movieDescription from  '@salesforce/schema/Movie__c.Description__c';
 import movieRelease from  '@salesforce/schema/Movie__c.Release_date__c';
 import insertMovie from '@salesforce/apex/MovieController.insertMovie'
 //import movieActors from  '@salesforce/schema/Movie__c.Actors';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 
 
@@ -40,7 +41,6 @@ export default class NewMoviesModalLwc extends LightningElement {
             label : '5'
         },
     ];
-
     typeOptions = [
         {
             value : 'Horror',
@@ -63,7 +63,6 @@ export default class NewMoviesModalLwc extends LightningElement {
             label : 'Horror'
         },
     ];
-
     actorsOptions = [];
 
     @track
@@ -84,27 +83,25 @@ export default class NewMoviesModalLwc extends LightningElement {
 
     saveNewMovie (){
         console.log(JSON.parse(JSON.stringify(this.newMovieRecord)));
-        // this.dispatchEvent(
-        //     new ShowToastEvent({
-        //         title: 'Success',
-        //         message: 'Movie inserted successfully',
-        //         variant: 'success'
-        //     })
-        // );
         insertMovie({obj: this.newMovieRecord})
         .then(() => {
             this.hideModalBox();
-            console.log('we here success');
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Movie created',
+                    variant: 'success'
+                })
+            );
         })
         .catch(error => {
-            console.log(error, 'we here error');
-            // this.dispatchEvent(
-            //     new ShowToastEvent({
-            //         title: 'Error',
-            //         message: error.body.message,
-            //         variant: 'error'
-            //     })
-            // );
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
         });
 
     }
@@ -123,10 +120,6 @@ export default class NewMoviesModalLwc extends LightningElement {
 
     handleChange(event) {
         this.value = event.detail.value;
-    }
-
-    showModalBox() {  
-        this.isshowmodal = true;
     }
 
     hideModalBox() {  

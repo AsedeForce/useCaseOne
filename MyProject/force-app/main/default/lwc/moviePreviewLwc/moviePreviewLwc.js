@@ -26,7 +26,9 @@ export default class MoviePreviewLwc extends LightningElement {
     deleteMovie(){
         deleteMovie({id : this.movie.id})
           .then(() => {
-            this.movie = {};
+            this.movie = null;
+            const deletedEvent = new CustomEvent('delete');
+            this.dispatchEvent(deletedEvent);
       }).catch(error => {
         console.log(error);
       });

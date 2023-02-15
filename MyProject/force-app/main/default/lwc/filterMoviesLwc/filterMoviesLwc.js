@@ -7,20 +7,10 @@ export default class FilterMoviesLwc extends LightningElement {
     movies = []; 
     search = '';
 
-    @wire(getMoviesWithSearch, { search: '$search' })
-    wiredValues({ error, data }) {
-        if (data) {
-            this.sendMovieResults(data);
-        } else if (error) {
-            // TODO : handle error
-            console.error(error);
-        }
-    }
-
-
-    sendMovieResults( data ){
+    sendMovieResults( ){
+        console.log(this.search);
         const movieEvent = new CustomEvent('filtered', 
-        {detail : [...data]}
+        {detail : this.search}
         );
         this.dispatchEvent(movieEvent);
     }
@@ -31,6 +21,7 @@ export default class FilterMoviesLwc extends LightningElement {
         const search = event.target.value;
         this.delayTimeout = setTimeout(() => {
             this.search = search;
+            this.sendMovieResults();
         }, 300);
     }
 
