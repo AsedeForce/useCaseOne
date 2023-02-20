@@ -1,4 +1,4 @@
-public with sharing class ActorSelector {
+public with sharing class ActorService {
     
     @AuraEnabled(cacheable=true)
     public static List<Actor__c> getActors() {

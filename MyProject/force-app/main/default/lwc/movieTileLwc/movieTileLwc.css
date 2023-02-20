@@ -1,16 +1,16 @@
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a:link {
-    color: rgb(159, 159, 159);
+  color: rgb(159, 159, 159);
 }
 a:visited {
-    color: green;
+  color: green;
 }
 a:hover {
-    color: rgb(22, 82, 132);
+  color: rgb(22, 82, 132);
 }
 a:active {
-    color: black;
+  color: black;
 }

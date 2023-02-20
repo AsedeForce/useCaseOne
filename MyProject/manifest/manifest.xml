@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>ActorSelector</members>
+        <members>ActorController</members>
+        <members>ActorControllerTest</members>
+        <members>ActorService</members>
+        <members>ActorServiceTest</members>
+        <members>MovieActorTriggerHandler</members>
+        <members>MovieActorTriggerHelper</members>
         <members>MovieController</members>
+        <members>MovieControllerTest</members>
+        <members>MovieService</members>
+        <members>MovieServiceTest</members>
+        <members>MovieTriggerTest</members>
+        <members>TestDataFactory</members>
+        <members>TestDataFactory_Test</members>
+        <members>TriggerHandler</members>
+        <members>TriggerHandler_Test</members>
+        <members>UpdateIsReleaseBatch</members>
+        <members>UpdateIsReleasedSchedule</members>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>MovieActorTrigger</members>
+        <name>ApexTrigger</name>
     </types>
     <types>
         <members>AppSwitcher</members>
@@ -41,6 +60,7 @@
     <types>
         <members>AwesomeMoviesApp_UtilityBar</members>
         <members>Movie</members>
+        <members>Movie_Record_Page</members>
         <members>MoviesManagement</members>
         <name>FlexiPage</name>
     </types>

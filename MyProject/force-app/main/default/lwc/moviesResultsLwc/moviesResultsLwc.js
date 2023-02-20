@@ -1,6 +1,6 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api } from "lwc";
 export default class MoviesResultsLwc extends LightningElement {
-    @api
-    movies;
-
+  // Template Properties
+  @api
+  movies;
 }
