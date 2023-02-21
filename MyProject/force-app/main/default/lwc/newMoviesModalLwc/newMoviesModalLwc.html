@@ -1,0 +1,244 @@
+<template>
+  <template if:true={isshowmodal}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container">
+        <!-- modal header start -->
+        <header class="slds-modal__header">
+          <button
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Close"
+            onclick={hideModalBox}
+          >
+            <lightning-icon
+              icon-name="utility:close"
+              alternative-text="close"
+              variant="inverse"
+              size="small"
+            >
+            </lightning-icon>
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <h2
+            id="modal-heading-01"
+            class="slds-text-heading_medium slds-hyphenate"
+          >
+            New Movie
+          </h2>
+        </header>
+        <!-- modal body start -->
+        <div
+          class="slds-modal__content slds-p-around_medium"
+          id="modal-content-id-1"
+        >
+          <div class="slds-grid slds-form-element slds-m-bottom_small">
+            <div class="slds-col slds-size_1-of-3">
+              <label class="slds-form-element__label" for="form-element-01"
+                >Name :
+              </label>
+            </div>
+            <div class="slds-col slds-size_2-of-3">
+              <div class="slds-form-element__control">
+                <lightning-input
+                  value={newMovieRecord.Name}
+                  variant="label-hidden"
+                  onchange={nameChangeHandler}
+                  type="text"
+                  id="form-element-01"
+                  placeholder="Movie name…"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-grid slds-form-element slds-m-bottom_small">
+            <div class="slds-col slds-size_1-of-3">
+              <label class="slds-form-element__label">Type : </label>
+            </div>
+            <div class="slds-col slds-size_2-of-3">
+              <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                  <div class="slds-select_container">
+                    <select
+                      class="slds-select"
+                      onchange={typeSelectionChangeHandler}
+                      disabled={isPicklistDisabled}
+                      required={isAttributeRequired}
+                    >
+                      <option value="Select Type">Select Type</option>
+                      <template for:each={typeOptions} for:item="option">
+                        <option
+                          key={option.label}
+                          class="uiInputSelectOption"
+                          value={option.value}
+                        >
+                          {option.value}
+                        </option>
+                      </template>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="slds-grid slds-form-element slds-m-bottom_small">
+            <div class="slds-col slds-size_1-of-3">
+              <label class="slds-form-element__label">Release Date : </label>
+            </div>
+            <div class="slds-col slds-size_2-of-3">
+              <div class="slds-form-element__control">
+                <lightning-input
+                  value={newMovieRecord.Release_date__c}
+                  variant="label-hidden"
+                  onchange={dateChangeHandler}
+                  type="date"
+                  id="form-element-03"
+                  placeholder="Choose date"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-grid slds-form-element slds-m-bottom_small">
+            <div class="slds-col slds-size_1-of-3">
+              <label class="slds-form-element__label">Description : </label>
+            </div>
+            <div class="slds-col slds-size_2-of-3">
+              <div class="slds-form-element__control">
+                <lightning-textarea
+                  id="textarea-id-01"
+                  variant="label-hidden"
+                  value={newMovieRecord.Description}
+                  placeholder="Write a description…"
+                  onchange={descriptionChangeHandler}
+                ></lightning-textarea>
+              </div>
+            </div>
+          </div>
+          <div class="slds-grid slds-form-element slds-m-bottom_small">
+            <div class="slds-col slds-size_1-of-3">
+              <label class="slds-form-element__label">Actors : </label>
+            </div>
+
+            <!-- sds -->
+
+            <div class="slds-col slds-size_2-of-3">
+              <div class="slds-form-element">
+                <template for:each={selectedActors} for:item="actor">
+                  <div class="slds-grid" key={actor.label}>
+                    <div
+                      class="slds-col slds-size_10-of-12 slds-p-left_none slds-p-right_none"
+                    >
+                      <div
+                        class="slds-form-element__control slds-m-bottom_small"
+                      >
+                        <lightning-input
+                          value={actor.value}
+                          readonly=""
+                          variant="label-hidden"
+                          type="text"
+                        >
+                        </lightning-input>
+                      </div>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12 slds-p-right_none">
+                      <lightning-button
+                        label="-"
+                        value={actor.value}
+                        onclick={removeActor}
+                      >
+                      </lightning-button>
+                    </div>
+                  </div>
+                </template>
+              </div>
+              <div class="slds-form-element">
+                <div class="slds-grid">
+                  <div
+                    class="slds-col slds-size_10-of-12 slds-p-left_none slds-p-right_none"
+                  >
+                    <div class="slds-form-element__control">
+                      <div class="slds-select_container">
+                        <select
+                          class="slds-select"
+                          onchange={actorSelectionChangeHandler}
+                          disabled={isPicklistDisabled}
+                          required={isAttributeRequired}
+                        >
+                          <option value="Select Actor">Select An Actor</option>
+                          <template for:each={actorsOptions} for:item="option">
+                            <option
+                              key={option.label}
+                              class="uiInputSelectOption"
+                              value={option.value}
+                            >
+                              {option.value}
+                            </option>
+                          </template>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slds-col slds-size_2-of-12 slds-p-right_none">
+                    <lightning-button label="+" onclick={addActor}>
+                    </lightning-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="slds-grid slds-form-element slds-m-bottom_small">
+            <div class="slds-col slds-size_1-of-3">
+              <label class="slds-form-element__label">Rating : </label>
+            </div>
+            <div class="slds-col slds-size_2-of-3">
+              <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                  <div class="slds-select_container">
+                    <select
+                      class="slds-select"
+                      onchange={ratingSelectionChangeHandler}
+                      disabled={isPicklistDisabled}
+                      required={isAttributeRequired}
+                    >
+                      <option value="Select Rating">Select Rating</option>
+                      <template for:each={ratingOptions} for:item="option">
+                        <option
+                          key={option.label}
+                          class="uiInputSelectOption"
+                          value={option.value}
+                        >
+                          {option.value}
+                        </option>
+                      </template>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- modal footer start-->
+        <footer class="slds-modal__footer">
+          <button
+            class="slds-button slds-button_neutral"
+            onclick={hideModalBox}
+          >
+            Cancel
+          </button>
+          <button
+            class="slds-button slds-button_neutral"
+            onclick={saveNewMovie}
+          >
+            Save
+          </button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

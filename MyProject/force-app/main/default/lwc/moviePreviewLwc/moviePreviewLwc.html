@@ -1,0 +1,23 @@
+<template>
+  <template if:true={movie}>
+    <div class="container slds-m-bottom_small">
+      <!-- <img class="product-img" src={product.fields.Picture_URL__c.value}></img> -->
+      <p class="slds-p-horizontal_small">Name : {movie.name}</p>
+      <p class="slds-p-horizontal_small">Type : {movie.type}</p>
+      <p class="slds-p-horizontal_small">Rating : {movie.rating}</p>
+      <p class="slds-p-horizontal_small">Release date : {movie.releaseDate}</p>
+      <p class="slds-p-horizontal_small">Description : {movie.description}</p>
+    </div>
+    <div
+      class="slds-align_absolute-center slds-size_1-of-2 slds-m-bottom_small"
+    >
+      <button class="slds-button slds-button_neutral">Update movie</button>
+      <button class="slds-button slds-button_neutral" onclick={deleteMovie}>
+        Delete movie
+      </button>
+    </div>
+  </template>
+  <template if:false={movie}>
+    <div class="slds-m-left_small">Choose a movie to see its details..</div>
+  </template>
+</template>
